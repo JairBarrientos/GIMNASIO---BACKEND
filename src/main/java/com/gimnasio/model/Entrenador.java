@@ -12,8 +12,8 @@ public class Entrenador {
 
     private String estado;
 
-    @OneToOne
-    @JoinColumn(name = "usuario_id", referencedColumnName = "idUsuario", nullable = false, unique = true)
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
     @ManyToOne
