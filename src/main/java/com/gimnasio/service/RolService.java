@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class RolService {
@@ -14,12 +15,18 @@ public class RolService {
     @Autowired
     private RolRepository data;
 
-    public List<Rol> listar() {
-        return (List<Rol>) data.findAll();
+    public List<RolDTO> listar() {
+        return data.findAll().stream()
+                .map(this::convertirDTO)
+                .collect(Collectors.toList());
     }
 
     public Optional<Rol> getId(int id) {
         return data.findById(id);
+    }
+
+    public Optional<RolDTO> getByIdDTO(int id) {
+        return data.findById(id).map(this::convertirDTO);
     }
 
     public int save(Rol r) {
@@ -37,5 +44,15 @@ public class RolService {
         dto.setNombre(rol.getNombre());
         dto.setDescripcion(rol.getDescripcion());
         return dto;
+    }
+
+    public List<RolDTO> buscarPorNombre(String texto) {
+        return data.buscarPorNombre(texto).stream()
+                .map(this::convertirDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<Object[]> contarUsuariosPorRol() {
+        return data.contarUsuariosPorRol();
     }
 }

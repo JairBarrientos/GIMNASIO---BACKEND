@@ -1,5 +1,6 @@
 package com.gimnasio.controller;
 
+import com.gimnasio.dto.RolDTO;
 import com.gimnasio.model.Rol;
 import com.gimnasio.service.RolService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +17,13 @@ public class RolController {
     private RolService service;
 
     @GetMapping
-    public List<Rol> listar() {
+    public List<RolDTO> listar() {
         return service.listar();
     }
 
     @GetMapping("{id}")
-    public Optional<Rol> buscar(@PathVariable int id) {
-        return service.getId(id);
+    public Optional<RolDTO> buscar(@PathVariable int id) {
+        return service.getByIdDTO(id);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -47,5 +48,15 @@ public class RolController {
     @DeleteMapping("{id}")
     public void eliminar(@PathVariable int id) {
         service.delete(id);
+    }
+
+    @GetMapping("/buscar/{texto}")
+    public List<RolDTO> buscarPorNombre(@PathVariable String texto) {
+        return service.buscarPorNombre(texto);
+    }
+
+    @GetMapping("/con-usuarios")
+    public List<Object[]> contarUsuariosPorRol() {
+        return service.contarUsuariosPorRol();
     }
 }

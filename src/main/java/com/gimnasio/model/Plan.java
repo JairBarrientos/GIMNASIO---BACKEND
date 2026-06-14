@@ -1,6 +1,8 @@
 package com.gimnasio.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "plan")
@@ -14,6 +16,10 @@ public class Plan {
     private String descripcion;
     private Double precio;
     private Integer duracionDias;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "plan")
+    private List<Miembro> miembros;
 
     public Integer getIdPlan() { return idPlan; }
     public void setIdPlan(Integer idPlan) { this.idPlan = idPlan; }
@@ -29,4 +35,7 @@ public class Plan {
 
     public Integer getDuracionDias() { return duracionDias; }
     public void setDuracionDias(Integer duracionDias) { this.duracionDias = duracionDias; }
+
+    public List<Miembro> getMiembros() { return miembros; }
+    public void setMiembros(List<Miembro> miembros) { this.miembros = miembros; }
 }

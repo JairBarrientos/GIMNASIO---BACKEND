@@ -1,5 +1,6 @@
 package com.gimnasio.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class Clase {
     private String horario;
     private Integer capacidad;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "clase")
     private List<Inscripcion> inscripciones;
 

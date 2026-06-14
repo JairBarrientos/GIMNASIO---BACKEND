@@ -1,5 +1,6 @@
 package com.gimnasio.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,43 +13,25 @@ public class Entrenador {
 
     private String estado;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "especialidad_id", referencedColumnName = "idEspecialidad", nullable = false)
     private Especialidad especialidad;
 
-    public Integer getIdEntrenador() {
-        return idEntrenador;
-    }
+    public Integer getIdEntrenador() { return idEntrenador; }
+    public void setIdEntrenador(Integer idEntrenador) { this.idEntrenador = idEntrenador; }
 
-    public void setIdEntrenador(Integer idEntrenador) {
-        this.idEntrenador = idEntrenador;
-    }
+    public String getEstado() { return estado; }
+    public void setEstado(String estado) { this.estado = estado; }
 
-    public String getEstado() {
-        return estado;
-    }
+    public Usuario getUsuario() { return usuario; }
+    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public Especialidad getEspecialidad() {
-        return especialidad;
-    }
-
-    public void setEspecialidad(Especialidad especialidad) {
-        this.especialidad = especialidad;
-    }
+    public Especialidad getEspecialidad() { return especialidad; }
+    public void setEspecialidad(Especialidad especialidad) { this.especialidad = especialidad; }
 }

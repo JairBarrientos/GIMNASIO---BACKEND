@@ -1,5 +1,6 @@
 package com.gimnasio.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -15,10 +16,12 @@ public class Miembro {
     private LocalDate fechaFin;
     private String estado;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_plan")
     private Plan plan;

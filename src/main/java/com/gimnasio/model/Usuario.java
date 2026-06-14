@@ -1,5 +1,6 @@
 package com.gimnasio.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,10 +14,14 @@ public class Usuario {
     private String nombres;
     private String apellidos;
     private String correo;
+
+    @JsonIgnore
     private String password;
+
     private String telefono;
     private String estado;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_rol")
     private Rol rol;

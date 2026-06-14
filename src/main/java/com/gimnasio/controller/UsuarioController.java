@@ -17,13 +17,13 @@ public class UsuarioController {
     private UsuarioService service;
 
     @GetMapping
-    public List<Usuario> listar() {
+    public List<UsuarioDTO> listar() {
         return service.listar();
     }
 
     @GetMapping("{id}")
-    public Optional<Usuario> buscar(@PathVariable int id) {
-        return service.getId(id);
+    public Optional<UsuarioDTO> buscar(@PathVariable int id) {
+        return service.getByIdDTO(id);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -58,5 +58,10 @@ public class UsuarioController {
     @GetMapping("/por-rol/{nombreRol}")
     public List<UsuarioDTO> listarPorRol(@PathVariable String nombreRol) {
         return service.listarPorRol(nombreRol);
+    }
+
+    @GetMapping("/buscar/{texto}")
+    public List<UsuarioDTO> buscarPorNombre(@PathVariable String texto) {
+        return service.buscarPorNombre(texto);
     }
 }

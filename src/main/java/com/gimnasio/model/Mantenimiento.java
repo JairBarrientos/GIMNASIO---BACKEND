@@ -1,5 +1,6 @@
 package com.gimnasio.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -15,6 +16,7 @@ public class Mantenimiento {
     private String descripcion;
     private Double costo;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_equipamiento")
     private Equipamiento equipamiento;
