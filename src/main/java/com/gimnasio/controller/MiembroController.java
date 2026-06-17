@@ -17,13 +17,13 @@ public class MiembroController {
     private MiembroService service;
 
     @GetMapping
-    public List<Miembro> listar() {
-        return service.listar();
+    public List<MiembroDTO> listar() {
+        return service.listarDTO();
     }
 
     @GetMapping("{id}")
-    public Optional<Miembro> buscar(@PathVariable int id) {
-        return service.getId(id);
+    public Optional<MiembroDTO> buscar(@PathVariable int id) {
+        return service.getId(id).map(service::convertirDTO);
     }
 
     @ResponseStatus(HttpStatus.CREATED)

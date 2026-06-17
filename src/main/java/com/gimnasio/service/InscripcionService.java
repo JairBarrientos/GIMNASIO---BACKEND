@@ -47,4 +47,13 @@ public class InscripcionService {
                 .map(this::convertirDTO)
                 .collect(Collectors.toList());
     }
+    
+    public List<InscripcionDTO> listarDTO() {
+        return repository.findAll().stream().map(this::convertirDTO).collect(Collectors.toList());
+    }
+
+    public InscripcionDTO getByIdDTO(Long id) {
+        Inscripcion i = repository.findById(id).orElse(null);
+        return i != null ? convertirDTO(i) : null;
+    }
 }

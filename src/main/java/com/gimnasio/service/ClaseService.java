@@ -5,6 +5,7 @@ import com.gimnasio.model.Clase;
 import com.gimnasio.repository.ClaseRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ClaseService {
@@ -15,12 +16,13 @@ public class ClaseService {
         this.repository = repository;
     }
 
-    public List<Clase> listar() {
-        return repository.findAll();
+    public List<ClaseDTO> listar() {
+        return repository.findAll().stream().map(this::convertirDTO).collect(Collectors.toList());
     }
 
-    public Clase getId(Long id) {
-        return repository.findById(id).orElse(null);
+    public ClaseDTO getId(Long id) {
+        Clase clase = repository.findById(id).orElse(null);
+        return clase != null ? convertirDTO(clase) : null;
     }
 
     public Clase save(Clase clase) {
@@ -37,6 +39,17 @@ public class ClaseService {
         dto.setNombre(clase.getNombre());
         dto.setHorario(clase.getHorario());
         dto.setCapacidad(clase.getCapacidad());
+        dto.setTotalInscripciones(
+            clase.getInscripciones() != null ? clase.getInscripciones().size() : 0
+        );
         return dto;
+    }
+
+    public List<ClaseDTO> buscarPorNombreCliente(String texto) {
+        return repository.buscarPorNombreCliente(texto).stream().map(this::convertirDTO).collect(Collectors.toList());
+    }
+
+    public List<Clase> clasesConInscripciones() {
+        return repository.clasesConInscripciones();
     }
 }

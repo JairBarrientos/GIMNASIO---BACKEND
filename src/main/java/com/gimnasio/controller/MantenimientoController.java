@@ -2,6 +2,7 @@ package com.gimnasio.controller;
 
 import com.gimnasio.dto.MantenimientoDTO;
 import com.gimnasio.service.MantenimientoService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class MantenimientoController {
         return mantenimientoService.getId(id);
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public MantenimientoDTO save(@RequestBody MantenimientoDTO dto) {
         return mantenimientoService.save(dto);
@@ -36,6 +38,7 @@ public class MantenimientoController {
         return mantenimientoService.save(dto);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) {
         mantenimientoService.delete(id);

@@ -1,5 +1,6 @@
 package com.gimnasio.controller;
 
+import com.gimnasio.dto.PlanDTO;
 import com.gimnasio.model.Plan;
 import com.gimnasio.service.PlanService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +17,13 @@ public class PlanController {
     private PlanService service;
 
     @GetMapping
-    public List<Plan> listar() {
+    public List<PlanDTO> listar() {
         return service.listar();
     }
 
     @GetMapping("{id}")
-    public Optional<Plan> buscar(@PathVariable int id) {
-        return service.getId(id);
+    public Optional<PlanDTO> buscar(@PathVariable int id) {
+        return service.getByIdDTO(id);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -49,5 +50,25 @@ public class PlanController {
     @DeleteMapping("{id}")
     public void eliminar(@PathVariable int id) {
         service.delete(id);
+    }
+
+    @GetMapping("/buscar")
+    public List<PlanDTO> buscarPorNombre(@RequestParam String texto) {
+        return service.buscarPorNombre(texto);
+    }
+
+    @GetMapping("/precio-maximo")
+    public List<PlanDTO> buscarPorPrecioMaximo(@RequestParam Double precio) {
+        return service.buscarPorPrecioMaximo(precio);
+    }
+
+    @GetMapping("/con-miembros")
+    public List<PlanDTO> buscarConMiembros(@RequestParam(defaultValue = "ACTIVO") String estado) {
+        return service.buscarConMiembrosEnEstado(estado);
+    }
+
+    @GetMapping("/duracion-minima")
+    public List<Plan> buscarPorDuracion(@RequestParam Integer dias) {
+        return service.buscarPorDuracionMinimaNative(dias);
     }
 }

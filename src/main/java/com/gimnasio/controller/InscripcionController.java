@@ -1,6 +1,7 @@
 package com.gimnasio.controller;
 
 import com.gimnasio.dto.InscripcionDTO;
+import com.gimnasio.model.Clase;
 import com.gimnasio.model.Inscripcion;
 import com.gimnasio.service.InscripcionService;
 import org.springframework.http.HttpStatus;
@@ -18,25 +19,38 @@ public class InscripcionController {
     }
 
     @GetMapping
-    public List<Inscripcion> listar() {
-        return service.listar();
+    public List<InscripcionDTO> listar() {
+        return service.listarDTO();
     }
 
     @GetMapping("/{id}")
-    public Inscripcion buscar(@PathVariable Long id) {
-        return service.getId(id);
+    public InscripcionDTO buscar(@PathVariable Long id) {
+        return service.getByIdDTO(id);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Inscripcion crear(@RequestBody Inscripcion inscripcion) {
-        return service.save(inscripcion);
+    public InscripcionDTO crear(@RequestBody Inscripcion inscripcion,
+                                 @RequestParam Long idClase) {
+        Clase clase = new Clase();
+        clase.setIdClase(idClase);
+        inscripcion.setClase(clase);
+        return service.convertirDTO(service.save(inscripcion));
     }
 
     @PutMapping("/{id}")
-    public Inscripcion actualizar(@PathVariable Long id, @RequestBody Inscripcion inscripcion) {
-        inscripcion.setIdInscripcion(id);
-        return service.save(inscripcion);
+    public InscripcionDTO actualizar(@PathVariable Long id, @RequestBody Inscripcion form,
+                                      @RequestParam Long idClase) {
+        Inscripcion existente = service.getId(id);
+        if (existente != null) {
+            existente.setNombreCliente(form.getNombreCliente());
+            existente.setFechaInscripcion(form.getFechaInscripcion());
+            Clase clase = new Clase();
+            clase.setIdClase(idClase);
+            existente.setClase(clase);
+            return service.convertirDTO(service.save(existente));
+        }
+        return null;
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -46,7 +60,7 @@ public class InscripcionController {
     }
 
     @GetMapping("/dto")
-    public List<InscripcionDTO> listarDTO() {
+    public List<InscripcionDTO> listarConClase() {
         return service.consultaMultitabla();
     }
 }

@@ -1,5 +1,6 @@
 package com.gimnasio.controller;
 
+import com.gimnasio.dto.ClaseDTO;
 import com.gimnasio.model.Clase;
 import com.gimnasio.service.ClaseService;
 import org.springframework.http.HttpStatus;
@@ -17,12 +18,12 @@ public class ClaseController {
     }
 
     @GetMapping
-    public List<Clase> listar() {
+    public List<ClaseDTO> listar() {
         return service.listar();
     }
 
     @GetMapping("/{id}")
-    public Clase buscar(@PathVariable Long id) {
+    public ClaseDTO buscar(@PathVariable Long id) {
         return service.getId(id);
     }
 
@@ -42,5 +43,15 @@ public class ClaseController {
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable Long id) {
         service.delete(id);
+    }
+
+    @GetMapping("/buscar")
+    public List<ClaseDTO> buscarPorNombreCliente(@RequestParam String texto) {
+        return service.buscarPorNombreCliente(texto);
+    }
+
+    @GetMapping("/con-inscripciones")
+    public List<Clase> clasesConInscripciones() {
+        return service.clasesConInscripciones();
     }
 }

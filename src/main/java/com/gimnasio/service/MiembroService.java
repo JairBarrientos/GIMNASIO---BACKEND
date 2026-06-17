@@ -50,4 +50,8 @@ public class MiembroService {
                 .map(this::convertirDTO)
                 .collect(Collectors.toList());
     }
+    
+    public List<MiembroDTO> listarDTO() {
+        return data.findAll().stream().map(this::convertirDTO).collect(Collectors.toList());
+    }
 }

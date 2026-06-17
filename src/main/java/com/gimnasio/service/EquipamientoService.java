@@ -1,5 +1,6 @@
 package com.gimnasio.service;
 
+import java.util.stream.Collectors;
 import com.gimnasio.dto.EquipamientoDTO;
 import com.gimnasio.model.Equipamiento;
 import com.gimnasio.repository.EquipamientoRepository;
@@ -55,5 +56,17 @@ public class EquipamientoService {
         dto.setEstado(e.getEstado());
         dto.setArea(e.getArea());
         return dto;
+    }
+    
+    public List<EquipamientoDTO> buscarPorArea(String area) {
+        return equipamientoRepository.buscarPorArea(area).stream().map(this::convertirDTO).collect(Collectors.toList());
+    }
+
+    public List<EquipamientoDTO> buscarPorEstado(String estado) {
+        return equipamientoRepository.buscarPorEstado(estado).stream().map(this::convertirDTO).collect(Collectors.toList());
+    }
+
+    public List<Equipamiento> equipamientoConMantenimiento() {
+        return equipamientoRepository.equipamientoConMantenimiento();
     }
 }
