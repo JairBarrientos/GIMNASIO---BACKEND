@@ -28,8 +28,8 @@ public class EspecialidadController {
     }
 
     @GetMapping("{id}")
-    public Optional<Especialidad> buscar(@PathVariable int id) {
-        return service.getId(id);
+    public Optional<EspecialidadDTO> buscar(@PathVariable int id) {
+        return service.getId(id).map(service::convertirDTO);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -56,4 +56,25 @@ public class EspecialidadController {
     public void eliminar(@PathVariable int id) {
         service.delete(id);
     }
+    
+    @GetMapping("/buscar")
+    public List<EspecialidadDTO> buscarPorNombre(@RequestParam String nombre) {
+        return service.buscarPorNombreDTO(nombre);
+    }
+
+    @GetMapping("/estado/{estado}")
+    public List<EspecialidadDTO> buscarPorEstado(@PathVariable String estado) {
+        return service.buscarPorEstadoDTO(estado);
+    }
+
+    @GetMapping("/con-entrenadores")
+    public List<EspecialidadDTO> conEntrenadores(@RequestParam(defaultValue = "ACTIVO") String estadoEntrenador) {
+        return service.buscarConEntrenadoresEnEstadoDTO(estadoEntrenador);
+    }
+
+    @GetMapping("/estado-native/{estado}")
+    public List<EspecialidadDTO> buscarPorEstadoNative(@PathVariable String estado) {
+        return service.buscarPorEstadoNativeDTO(estado);
+    }
+    
 }

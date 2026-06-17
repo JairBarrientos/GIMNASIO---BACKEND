@@ -52,9 +52,22 @@ public class EntrenadorService {
     }
 
     public List<EntrenadorDTO> listarDTO() {
-        return data.findAll()
-                .stream()
-                .map(this::convertirDTO)
-                .collect(Collectors.toList());
+        return data.findAll().stream().map(this::convertirDTO).collect(Collectors.toList());
+    }
+    
+    public List<EntrenadorDTO> buscarPorEspecialidadDTO(String nombre) {
+        return data.buscarPorEspecialidad(nombre).stream().map(this::convertirDTO).collect(Collectors.toList());
+    }
+
+    public List<EntrenadorDTO> buscarPorEstadoDTO(String estado) {
+        return data.buscarPorEstado(estado).stream().map(this::convertirDTO).collect(Collectors.toList());
+    }
+
+    public List<EntrenadorDTO> buscarPorNombreUsuarioDTO(String texto) {
+        return data.buscarPorNombreUsuario(texto).stream().map(this::convertirDTO).collect(Collectors.toList());
+    }
+
+    public List<EntrenadorDTO> buscarPorEspecialidadLikeNativeDTO(String nombreEspecialidad) {
+        return data.buscarPorEspecialidadLikeNative(nombreEspecialidad).stream().map(this::convertirDTO).collect(Collectors.toList());
     }
 }

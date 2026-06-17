@@ -43,9 +43,22 @@ public class EspecialidadService {
     }
 
     public List<EspecialidadDTO> listarDTO() {
-        return data.findAll()
-                .stream()
-                .map(this::convertirDTO)
-                .collect(Collectors.toList());
+        return data.findAll().stream().map(this::convertirDTO).collect(Collectors.toList());
+    }
+    
+    public List<EspecialidadDTO> buscarPorNombreDTO(String nombre) {
+        return data.buscarPorNombre(nombre).stream().map(this::convertirDTO).collect(Collectors.toList());
+    }
+
+    public List<EspecialidadDTO> buscarPorEstadoDTO(String estado) {
+        return data.buscarPorEstado(estado).stream().map(this::convertirDTO).collect(Collectors.toList());
+    }
+
+    public List<EspecialidadDTO> buscarConEntrenadoresEnEstadoDTO(String estadoEntrenador) {
+        return data.buscarConEntrenadoresEnEstado(estadoEntrenador).stream().map(this::convertirDTO).collect(Collectors.toList());
+    }
+
+    public List<EspecialidadDTO> buscarPorEstadoNativeDTO(String estado) {
+        return data.buscarPorEstadoNative(estado).stream().map(this::convertirDTO).collect(Collectors.toList());
     }
 }

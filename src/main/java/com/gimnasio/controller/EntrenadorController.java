@@ -35,13 +35,19 @@ public class EntrenadorController {
     }
 
     @GetMapping("{id}")
-    public Optional<Entrenador> buscar(@PathVariable int id) {
-        return service.getId(id);
+    public Optional<EntrenadorDTO> buscar(@PathVariable int id) {
+        return service.getId(id).map(service::convertirDTO);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public int crear(@RequestBody Entrenador e) {
+    public int crear(@RequestBody Entrenador e,
+                      @RequestParam Integer idUsuario,
+                      @RequestParam Integer idEspecialidad) {
+        Usuario usuario = entityManager.getReference(Usuario.class, idUsuario);
+        Especialidad especialidad = entityManager.getReference(Especialidad.class, idEspecialidad);
+        e.setUsuario(usuario);
+        e.setEspecialidad(especialidad);
         return service.save(e);
     }
 
@@ -71,5 +77,25 @@ public class EntrenadorController {
     @DeleteMapping("{id}")
     public void eliminar(@PathVariable int id) {
         service.delete(id);
+    }
+    
+    @GetMapping("/especialidad/{nombre}")
+    public List<EntrenadorDTO> buscarPorEspecialidad(@PathVariable String nombre) {
+        return service.buscarPorEspecialidadDTO(nombre);
+    }
+
+    @GetMapping("/estado/{estado}")
+    public List<EntrenadorDTO> buscarPorEstado(@PathVariable String estado) {
+        return service.buscarPorEstadoDTO(estado);
+    }
+
+    @GetMapping("/buscar")
+    public List<EntrenadorDTO> buscarPorNombreUsuario(@RequestParam String texto) {
+        return service.buscarPorNombreUsuarioDTO(texto);
+    }
+
+    @GetMapping("/especialidad-like-native")
+    public List<EntrenadorDTO> buscarPorEspecialidadLikeNative(@RequestParam String nombre) {
+        return service.buscarPorEspecialidadLikeNativeDTO(nombre);
     }
 }
