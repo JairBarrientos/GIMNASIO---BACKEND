@@ -10,6 +10,8 @@ public class MantenimientoDTO {
     private Double costo;
     private Integer idEquipamiento;
     private String nombreEquipamiento;
+    private Integer idEntrenador;
+    private String nombreEntrenador;
 
     public Integer getIdMantenimiento() { return idMantenimiento; }
     public void setIdMantenimiento(Integer idMantenimiento) { this.idMantenimiento = idMantenimiento; }
@@ -28,4 +30,10 @@ public class MantenimientoDTO {
 
     public String getNombreEquipamiento() { return nombreEquipamiento; }
     public void setNombreEquipamiento(String nombreEquipamiento) { this.nombreEquipamiento = nombreEquipamiento; }
+
+    public Integer getIdEntrenador() { return idEntrenador; }
+    public void setIdEntrenador(Integer idEntrenador) { this.idEntrenador = idEntrenador; }
+
+    public String getNombreEntrenador() { return nombreEntrenador; }
+    public void setNombreEntrenador(String nombreEntrenador) { this.nombreEntrenador = nombreEntrenador; }
 }

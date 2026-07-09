@@ -46,8 +46,8 @@ public class ClaseController {
     }
 
     @GetMapping("/buscar")
-    public List<ClaseDTO> buscarPorNombreCliente(@RequestParam String texto) {
-        return service.buscarPorNombreCliente(texto);
+    public List<ClaseDTO> buscarPorNombreMiembro(@RequestParam String texto) {
+        return service.buscarPorNombreMiembro(texto);
     }
 
     @GetMapping("/con-inscripciones")

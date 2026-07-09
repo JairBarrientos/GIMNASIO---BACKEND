@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import java.util.List;
+import java.util.Optional;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
@@ -16,4 +17,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     @Query(value = "SELECT u.*, r.nombre AS nombre_rol FROM usuario u INNER JOIN rol r ON u.id_rol = r.id_rol WHERE u.estado = :estado", nativeQuery = true)
     List<Object[]> buscarPorEstadoNative(@Param("estado") String estado);
+
+    Optional<Usuario> findByCorreo(String correo);
 }

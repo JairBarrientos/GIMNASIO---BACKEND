@@ -11,8 +11,10 @@ public interface ClaseRepository extends JpaRepository<Clase, Long> {
     @Query("SELECT c FROM Clase c WHERE c.capacidad >= :capacidad")
     List<Clase> buscarPorCapacidadMinima(@Param("capacidad") Integer capacidad);
 
-    @Query("SELECT c FROM Clase c JOIN c.inscripciones i WHERE i.nombreCliente LIKE %:texto%")
-    List<Clase> buscarPorNombreCliente(@Param("texto") String texto);
+    @Query("SELECT DISTINCT c FROM Clase c JOIN c.inscripciones i JOIN i.miembro m JOIN m.usuario u " +
+           "WHERE LOWER(u.nombres) LIKE LOWER(CONCAT('%', :texto, '%')) " +
+           "OR LOWER(u.apellidos) LIKE LOWER(CONCAT('%', :texto, '%'))")
+    List<Clase> buscarPorNombreMiembro(@Param("texto") String texto);
 
     @Query(value = "SELECT c.* FROM clase c INNER JOIN inscripcion i ON i.id_clase = c.id_clase GROUP BY c.id_clase HAVING COUNT(i.id_inscripcion) > 0", nativeQuery = true)
     List<Clase> clasesConInscripciones();

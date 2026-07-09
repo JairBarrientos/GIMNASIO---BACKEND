@@ -48,4 +48,9 @@ public class MantenimientoController {
     public List<MantenimientoDTO> buscarPorArea(@PathVariable String area) {
         return mantenimientoService.consultaMultitabla(area);
     }
+
+    @GetMapping("/por-entrenador/{idEntrenador}")
+    public List<MantenimientoDTO> buscarPorEntrenador(@PathVariable Integer idEntrenador) {
+        return mantenimientoService.buscarPorEntrenadorDTO(idEntrenador);
+    }
 }

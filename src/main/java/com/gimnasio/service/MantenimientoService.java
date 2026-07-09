@@ -1,24 +1,31 @@
 package com.gimnasio.service;
 
 import com.gimnasio.dto.MantenimientoDTO;
+import com.gimnasio.model.Entrenador;
 import com.gimnasio.model.Equipamiento;
 import com.gimnasio.model.Mantenimiento;
+import com.gimnasio.repository.EntrenadorRepository;
 import com.gimnasio.repository.EquipamientoRepository;
 import com.gimnasio.repository.MantenimientoRepository;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MantenimientoService {
 
     private final MantenimientoRepository mantenimientoRepository;
     private final EquipamientoRepository equipamientoRepository;
+    private final EntrenadorRepository entrenadorRepository;
 
-    public MantenimientoService(MantenimientoRepository mantenimientoRepository, EquipamientoRepository equipamientoRepository) {
+    public MantenimientoService(MantenimientoRepository mantenimientoRepository,
+                                 EquipamientoRepository equipamientoRepository,
+                                 EntrenadorRepository entrenadorRepository) {
         this.mantenimientoRepository = mantenimientoRepository;
         this.equipamientoRepository = equipamientoRepository;
+        this.entrenadorRepository = entrenadorRepository;
     }
 
     public List<MantenimientoDTO> listar() {
@@ -46,8 +53,11 @@ public class MantenimientoService {
         m.setCosto(dto.getCosto());
 
         Optional<Equipamiento> eq = equipamientoRepository.findById(dto.getIdEquipamiento());
-        if (eq.isPresent()) {
-            m.setEquipamiento(eq.get());
+        eq.ifPresent(m::setEquipamiento);
+
+        if (dto.getIdEntrenador() != null) {
+            Optional<Entrenador> ent = entrenadorRepository.findById(dto.getIdEntrenador());
+            ent.ifPresent(m::setEntrenador);
         }
 
         Mantenimiento guardado = mantenimientoRepository.save(m);
@@ -67,6 +77,11 @@ public class MantenimientoService {
         return listaDTO;
     }
 
+    public List<MantenimientoDTO> buscarPorEntrenadorDTO(Integer idEntrenador) {
+        return mantenimientoRepository.buscarPorEntrenador(idEntrenador)
+                .stream().map(this::convertirDTO).collect(Collectors.toList());
+    }
+
     public MantenimientoDTO convertirDTO(Mantenimiento m) {
         MantenimientoDTO dto = new MantenimientoDTO();
         dto.setIdMantenimiento(m.getIdMantenimiento());
@@ -76,6 +91,12 @@ public class MantenimientoService {
         if (m.getEquipamiento() != null) {
             dto.setIdEquipamiento(m.getEquipamiento().getIdEquipamiento());
             dto.setNombreEquipamiento(m.getEquipamiento().getNombre());
+        }
+        if (m.getEntrenador() != null) {
+            dto.setIdEntrenador(m.getEntrenador().getIdEntrenador());
+            if (m.getEntrenador().getUsuario() != null) {
+                dto.setNombreEntrenador(m.getEntrenador().getUsuario().getNombres() + " " + m.getEntrenador().getUsuario().getApellidos());
+            }
         }
         return dto;
     }

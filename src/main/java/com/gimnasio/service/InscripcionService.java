@@ -35,9 +35,20 @@ public class InscripcionService {
     public InscripcionDTO convertirDTO(Inscripcion i) {
         InscripcionDTO dto = new InscripcionDTO();
         dto.setIdInscripcion(i.getIdInscripcion());
-        dto.setNombreCliente(i.getNombreCliente());
         dto.setFechaInscripcion(i.getFechaInscripcion());
-        dto.setNombreClase(i.getClase().getNombre());
+
+        if (i.getClase() != null) {
+            dto.setIdClase(i.getClase().getIdClase());
+            dto.setNombreClase(i.getClase().getNombre());
+        }
+
+        if (i.getMiembro() != null) {
+            dto.setIdMiembro(i.getMiembro().getIdMiembro());
+            if (i.getMiembro().getUsuario() != null) {
+                dto.setNombreMiembro(i.getMiembro().getUsuario().getNombres() + " " + i.getMiembro().getUsuario().getApellidos());
+            }
+        }
+
         return dto;
     }
 
@@ -47,7 +58,7 @@ public class InscripcionService {
                 .map(this::convertirDTO)
                 .collect(Collectors.toList());
     }
-    
+
     public List<InscripcionDTO> listarDTO() {
         return repository.findAll().stream().map(this::convertirDTO).collect(Collectors.toList());
     }
@@ -55,5 +66,13 @@ public class InscripcionService {
     public InscripcionDTO getByIdDTO(Long id) {
         Inscripcion i = repository.findById(id).orElse(null);
         return i != null ? convertirDTO(i) : null;
+    }
+
+    public List<InscripcionDTO> buscarPorMiembroDTO(Integer idMiembro) {
+        return repository.buscarPorMiembro(idMiembro).stream().map(this::convertirDTO).collect(Collectors.toList());
+    }
+
+    public List<InscripcionDTO> buscarPorNombreMiembroDTO(String texto) {
+        return repository.buscarPorNombreMiembro(texto).stream().map(this::convertirDTO).collect(Collectors.toList());
     }
 }

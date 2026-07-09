@@ -1,7 +1,6 @@
 package com.gimnasio.controller;
 
 import com.gimnasio.dto.MiembroDTO;
-import com.gimnasio.model.Miembro;
 import com.gimnasio.service.MiembroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,23 +27,14 @@ public class MiembroController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public int crear(@RequestBody Miembro m) {
-        return service.save(m);
+    public MiembroDTO crear(@RequestBody MiembroDTO dto) {
+        return service.save(dto);
     }
 
     @PutMapping("{id}")
-    public int actualizar(@PathVariable int id, @RequestBody Miembro form) {
-        Optional<Miembro> optional = service.getId(id);
-        if (optional.isPresent()) {
-            Miembro m = optional.get();
-            m.setFechaInicio(form.getFechaInicio());
-            m.setFechaFin(form.getFechaFin());
-            m.setEstado(form.getEstado());
-            m.setUsuario(form.getUsuario());
-            m.setPlan(form.getPlan());
-            return service.save(m);
-        }
-        return 0;
+    public MiembroDTO actualizar(@PathVariable int id, @RequestBody MiembroDTO dto) {
+        dto.setIdMiembro(id);
+        return service.save(dto);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -56,5 +46,15 @@ public class MiembroController {
     @GetMapping("/por-plan/{nombrePlan}")
     public List<MiembroDTO> listarPorPlan(@PathVariable String nombrePlan) {
         return service.listarPorPlan(nombrePlan);
+    }
+
+    @GetMapping("/buscar")
+    public List<MiembroDTO> buscarPorNombreUsuario(@RequestParam String texto) {
+        return service.buscarPorNombreUsuario(texto);
+    }
+
+    @GetMapping("/por-plan-native/{nombrePlan}")
+    public List<MiembroDTO> buscarPorPlanNative(@PathVariable String nombrePlan) {
+        return service.buscarPorPlanNative(nombrePlan);
     }
 }

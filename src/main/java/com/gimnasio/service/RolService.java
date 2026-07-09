@@ -55,4 +55,10 @@ public class RolService {
     public List<Object[]> contarUsuariosPorRol() {
         return data.contarUsuariosPorRol();
     }
+    
+    public List<RolDTO> buscarConUsuariosEnEstado(String estado) {
+        return data.buscarConUsuariosEnEstado(estado).stream()
+                .map(this::convertirDTO)
+                .collect(Collectors.toList());
+    }
 }

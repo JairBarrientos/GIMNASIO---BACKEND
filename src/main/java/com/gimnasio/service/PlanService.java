@@ -61,4 +61,8 @@ public class PlanService {
     public List<Plan> buscarPorDuracionMinimaNative(Integer dias) {
         return data.buscarPorDuracionMinimaNative(dias);
     }
+    
+    public List<PlanDTO> buscarConMiembrosEnEstadoNative(String estado) {
+        return data.buscarConMiembrosEnEstadoNative(estado).stream().map(this::convertirDTO).collect(Collectors.toList());
+    }
 }

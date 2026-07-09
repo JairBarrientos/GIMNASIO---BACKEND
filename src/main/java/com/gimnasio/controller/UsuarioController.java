@@ -1,7 +1,6 @@
 package com.gimnasio.controller;
 
 import com.gimnasio.dto.UsuarioDTO;
-import com.gimnasio.model.Usuario;
 import com.gimnasio.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,25 +27,13 @@ public class UsuarioController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public int crear(@RequestBody Usuario u) {
-        return service.save(u);
+    public UsuarioDTO crear(@RequestBody UsuarioDTO dto) {
+        return service.crear(dto);
     }
 
     @PutMapping("{id}")
-    public int actualizar(@PathVariable int id, @RequestBody Usuario form) {
-        Optional<Usuario> optional = service.getId(id);
-        if (optional.isPresent()) {
-            Usuario u = optional.get();
-            u.setNombres(form.getNombres());
-            u.setApellidos(form.getApellidos());
-            u.setCorreo(form.getCorreo());
-            u.setPassword(form.getPassword());
-            u.setTelefono(form.getTelefono());
-            u.setEstado(form.getEstado());
-            u.setRol(form.getRol());
-            return service.save(u);
-        }
-        return 0;
+    public UsuarioDTO actualizar(@PathVariable int id, @RequestBody UsuarioDTO dto) {
+        return service.actualizar(id, dto);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

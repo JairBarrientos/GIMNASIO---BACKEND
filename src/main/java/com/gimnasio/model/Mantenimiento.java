@@ -21,6 +21,11 @@ public class Mantenimiento {
     @JoinColumn(name = "id_equipamiento")
     private Equipamiento equipamiento;
 
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "id_entrenador")
+    private Entrenador entrenador;
+
     public Integer getIdMantenimiento() { return idMantenimiento; }
     public void setIdMantenimiento(Integer idMantenimiento) { this.idMantenimiento = idMantenimiento; }
 
@@ -35,4 +40,7 @@ public class Mantenimiento {
 
     public Equipamiento getEquipamiento() { return equipamiento; }
     public void setEquipamiento(Equipamiento equipamiento) { this.equipamiento = equipamiento; }
+
+    public Entrenador getEntrenador() { return entrenador; }
+    public void setEntrenador(Entrenador entrenador) { this.entrenador = entrenador; }
 }

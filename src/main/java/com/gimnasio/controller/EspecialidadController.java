@@ -77,4 +77,8 @@ public class EspecialidadController {
         return service.buscarPorEstadoNativeDTO(estado);
     }
     
+    @GetMapping("/con-entrenadores-native")
+    public List<EspecialidadDTO> conEntrenadoresNative(@RequestParam(defaultValue = "ACTIVO") String estadoEntrenador) {
+        return service.buscarConEntrenadoresEnEstadoNativeDTO(estadoEntrenador);
+    }
 }

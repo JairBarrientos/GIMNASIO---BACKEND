@@ -84,16 +84,16 @@ INSERT INTO clase (nombre, horario, capacidad) VALUES ('TRX', '13:00', 15);
 INSERT INTO clase (nombre, horario, capacidad) VALUES ('Aerobicos', '14:00', 30);
 INSERT INTO clase (nombre, horario, capacidad) VALUES ('Kick Boxing', '15:00', 20);
 
-INSERT INTO inscripcion (nombre_cliente, fecha_inscripcion, id_clase) VALUES ('Luis Gomez Paredes', '2026-06-01', 1);
-INSERT INTO inscripcion (nombre_cliente, fecha_inscripcion, id_clase) VALUES ('Maria Lopez Huanca', '2026-06-01', 2);
-INSERT INTO inscripcion (nombre_cliente, fecha_inscripcion, id_clase) VALUES ('Sofia Chavez Mamani', '2026-06-02', 3);
-INSERT INTO inscripcion (nombre_cliente, fecha_inscripcion, id_clase) VALUES ('Elena Ruiz Turpo', '2026-06-02', 4);
-INSERT INTO inscripcion (nombre_cliente, fecha_inscripcion, id_clase) VALUES ('Luis Gomez Paredes', '2026-06-03', 5);
-INSERT INTO inscripcion (nombre_cliente, fecha_inscripcion, id_clase) VALUES ('Maria Lopez Huanca', '2026-06-03', 6);
-INSERT INTO inscripcion (nombre_cliente, fecha_inscripcion, id_clase) VALUES ('Sofia Chavez Mamani', '2026-06-04', 7);
-INSERT INTO inscripcion (nombre_cliente, fecha_inscripcion, id_clase) VALUES ('Elena Ruiz Turpo', '2026-06-04', 8);
-INSERT INTO inscripcion (nombre_cliente, fecha_inscripcion, id_clase) VALUES ('Luis Gomez Paredes', '2026-06-05', 9);
-INSERT INTO inscripcion (nombre_cliente, fecha_inscripcion, id_clase) VALUES ('Maria Lopez Huanca', '2026-06-05', 10);
+INSERT INTO inscripcion (fecha_inscripcion, id_clase, id_miembro) VALUES ('2026-06-01', 1, 1);
+INSERT INTO inscripcion (fecha_inscripcion, id_clase, id_miembro) VALUES ('2026-06-01', 2, 2);
+INSERT INTO inscripcion (fecha_inscripcion, id_clase, id_miembro) VALUES ('2026-06-02', 3, 3);
+INSERT INTO inscripcion (fecha_inscripcion, id_clase, id_miembro) VALUES ('2026-06-02', 4, 4);
+INSERT INTO inscripcion (fecha_inscripcion, id_clase, id_miembro) VALUES ('2026-06-03', 5, 1);
+INSERT INTO inscripcion (fecha_inscripcion, id_clase, id_miembro) VALUES ('2026-06-03', 6, 2);
+INSERT INTO inscripcion (fecha_inscripcion, id_clase, id_miembro) VALUES ('2026-06-04', 7, 3);
+INSERT INTO inscripcion (fecha_inscripcion, id_clase, id_miembro) VALUES ('2026-06-04', 8, 4);
+INSERT INTO inscripcion (fecha_inscripcion, id_clase, id_miembro) VALUES ('2026-06-05', 9, 1);
+INSERT INTO inscripcion (fecha_inscripcion, id_clase, id_miembro) VALUES ('2026-06-05', 10, 2);
 
 -- ================================
 -- JHOE: EQUIPAMIENTO Y MANTENIMIENTO
@@ -110,13 +110,13 @@ INSERT INTO equipamiento (nombre, estado, area) VALUES ('Barra Olimpica de Acero
 INSERT INTO equipamiento (nombre, estado, area) VALUES ('Maquina de Remo Premium', 'Operativo', 'Cardio');
 INSERT INTO equipamiento (nombre, estado, area) VALUES ('Escaladora de Escalones', 'Mantenimiento', 'Cardio');
 
-INSERT INTO mantenimiento (fecha, descripcion, costo, id_equipamiento) VALUES ('2026-05-10', 'Ajuste de faja y lubricacion completa', 120.00, 1);
-INSERT INTO mantenimiento (fecha, descripcion, costo, id_equipamiento) VALUES ('2026-05-12', 'Cambio de sensor de pantalla digital', 85.00, 2);
-INSERT INTO mantenimiento (fecha, descripcion, costo, id_equipamiento) VALUES ('2026-05-15', 'Engrase de rieles y calibracion', 50.00, 3);
-INSERT INTO mantenimiento (fecha, descripcion, costo, id_equipamiento) VALUES ('2026-05-18', 'Tapizado de respaldar de cuero roto', 140.00, 4);
-INSERT INTO mantenimiento (fecha, descripcion, costo, id_equipamiento) VALUES ('2026-05-20', 'Limpieza y mantenimiento preventivo', 40.00, 5);
-INSERT INTO mantenimiento (fecha, descripcion, costo, id_equipamiento) VALUES ('2026-05-22', 'Cambio de cables trenzados rotos', 210.00, 6);
-INSERT INTO mantenimiento (fecha, descripcion, costo, id_equipamiento) VALUES ('2026-05-25', 'Pintado antioxidante de barras de agarre', 35.00, 7);
-INSERT INTO mantenimiento (fecha, descripcion, costo, id_equipamiento) VALUES ('2026-05-26', 'Limpieza profunda de oxido', 25.00, 8);
-INSERT INTO mantenimiento (fecha, descripcion, costo, id_equipamiento) VALUES ('2026-05-28', 'Reparacion de bomba hidraulica de agua', 160.00, 9);
-INSERT INTO mantenimiento (fecha, descripcion, costo, id_equipamiento) VALUES ('2026-06-01', 'Ajuste de motor electrico interno', 190.00, 10);
+INSERT INTO mantenimiento (fecha, descripcion, costo, id_equipamiento, id_entrenador) VALUES ('2026-05-10', 'Ajuste de faja y lubricacion completa', 120.00, 1, 1);
+INSERT INTO mantenimiento (fecha, descripcion, costo, id_equipamiento, id_entrenador) VALUES ('2026-05-12', 'Cambio de sensor de pantalla digital', 85.00, 2, 2);
+INSERT INTO mantenimiento (fecha, descripcion, costo, id_equipamiento, id_entrenador) VALUES ('2026-05-15', 'Engrase de rieles y calibracion', 50.00, 3, 3);
+INSERT INTO mantenimiento (fecha, descripcion, costo, id_equipamiento, id_entrenador) VALUES ('2026-05-18', 'Tapizado de respaldar de cuero roto', 140.00, 4, 4);
+INSERT INTO mantenimiento (fecha, descripcion, costo, id_equipamiento, id_entrenador) VALUES ('2026-05-20', 'Limpieza y mantenimiento preventivo', 40.00, 5, 5);
+INSERT INTO mantenimiento (fecha, descripcion, costo, id_equipamiento, id_entrenador) VALUES ('2026-05-22', 'Cambio de cables trenzados rotos', 210.00, 6, 6);
+INSERT INTO mantenimiento (fecha, descripcion, costo, id_equipamiento, id_entrenador) VALUES ('2026-05-25', 'Pintado antioxidante de barras de agarre', 35.00, 7, 7);
+INSERT INTO mantenimiento (fecha, descripcion, costo, id_equipamiento, id_entrenador) VALUES ('2026-05-26', 'Limpieza profunda de oxido', 25.00, 8, 8);
+INSERT INTO mantenimiento (fecha, descripcion, costo, id_equipamiento, id_entrenador) VALUES ('2026-05-28', 'Reparacion de bomba hidraulica de agua', 160.00, 9, 9);
+INSERT INTO mantenimiento (fecha, descripcion, costo, id_equipamiento, id_entrenador) VALUES ('2026-06-01', 'Ajuste de motor electrico interno', 190.00, 10, 10);

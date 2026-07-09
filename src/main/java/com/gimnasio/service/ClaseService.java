@@ -45,8 +45,8 @@ public class ClaseService {
         return dto;
     }
 
-    public List<ClaseDTO> buscarPorNombreCliente(String texto) {
-        return repository.buscarPorNombreCliente(texto).stream().map(this::convertirDTO).collect(Collectors.toList());
+    public List<ClaseDTO> buscarPorNombreMiembro(String texto) {
+        return repository.buscarPorNombreMiembro(texto).stream().map(this::convertirDTO).collect(Collectors.toList());
     }
 
     public List<Clase> clasesConInscripciones() {

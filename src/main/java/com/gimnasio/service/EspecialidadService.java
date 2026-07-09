@@ -61,4 +61,8 @@ public class EspecialidadService {
     public List<EspecialidadDTO> buscarPorEstadoNativeDTO(String estado) {
         return data.buscarPorEstadoNative(estado).stream().map(this::convertirDTO).collect(Collectors.toList());
     }
+    
+    public List<EspecialidadDTO> buscarConEntrenadoresEnEstadoNativeDTO(String estadoEntrenador) {
+        return data.buscarConEntrenadoresEnEstadoNative(estadoEntrenador).stream().map(this::convertirDTO).collect(Collectors.toList());
+    }
 }

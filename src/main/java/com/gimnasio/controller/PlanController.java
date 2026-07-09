@@ -71,4 +71,9 @@ public class PlanController {
     public List<Plan> buscarPorDuracion(@RequestParam Integer dias) {
         return service.buscarPorDuracionMinimaNative(dias);
     }
+    
+    @GetMapping("/con-miembros-native")
+    public List<PlanDTO> buscarConMiembrosNative(@RequestParam(defaultValue = "ACTIVO") String estado) {
+        return service.buscarConMiembrosEnEstadoNative(estado);
+    }
 }

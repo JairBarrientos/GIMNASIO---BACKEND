@@ -59,4 +59,9 @@ public class RolController {
     public List<Object[]> contarUsuariosPorRol() {
         return service.contarUsuariosPorRol();
     }
+    
+    @GetMapping("/con-usuarios-activos")
+    public List<RolDTO> conUsuariosEnEstado(@RequestParam(defaultValue = "ACTIVO") String estado) {
+        return service.buscarConUsuariosEnEstado(estado);
+    }
 }

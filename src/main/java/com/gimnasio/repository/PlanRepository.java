@@ -19,4 +19,11 @@ public interface PlanRepository extends JpaRepository<Plan, Integer> {
 
     @Query(value = "SELECT * FROM plan WHERE duracion_dias >= :dias", nativeQuery = true)
     List<Plan> buscarPorDuracionMinimaNative(@Param("dias") Integer dias);
+
+    @Query(value = "SELECT DISTINCT p.* FROM plan p " +
+            "INNER JOIN miembro m ON m.id_plan = p.id_plan " +
+            "INNER JOIN usuario u ON m.id_usuario = u.id_usuario " +
+            "WHERE m.estado = :estado",
+            nativeQuery = true)
+    List<Plan> buscarConMiembrosEnEstadoNative(@Param("estado") String estado);
 }
